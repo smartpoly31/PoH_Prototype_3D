@@ -19,7 +19,12 @@ public class DoorTrigger : MonoBehaviour
     private Vector3 PlayerPosition2C = new Vector3(70, -5.5f, 21);
     private Vector3 PlayerPosition3A = new Vector3(144, -5.5f, 12);
 
+    public struct DoorEventData
+    {
+        public string Event;
+        public Vector3 Position;
 
+    }
     private void OnTriggerEnter(Collider other)
     {
         // 트리거에 닿은 오브젝트가 DoorA_R1인지 확인합니다.
@@ -30,6 +35,8 @@ public class DoorTrigger : MonoBehaviour
 
             // 플레이어의 위치를 변경합니다.
             transform.position = PlayerPosition2B;
+
+            TelemetryLogger.Log(this, "Door 1 Used", this.transform.position);
         }
 
         if (other.gameObject.name == "DoorB_R2")

@@ -20,6 +20,7 @@ public class MrMove : MonoBehaviour
         {
             // 목표 위치로 부드럽게 이동
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            TelemetryLogger.Log(this, "Mr. Moved");
         }
     }
 
