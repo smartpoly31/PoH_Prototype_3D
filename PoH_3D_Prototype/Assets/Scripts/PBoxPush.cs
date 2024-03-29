@@ -5,33 +5,18 @@ using UnityEngine;
 public class PBoxPush : MonoBehaviour
 {
     private bool isPlayerNear = false; // 플레이어가 박스와 충돌하고 있는지 여부
-
-    private Vector3 targetPosition; // 이동할 목표 위치
-    private bool isMoving = false; // 현재 이동 중인지 여부
+    public GameObject puzzlePrefab; // 생성할 Puzzle01 프리팹
+    private GameObject instantiatedPuzzle = null; // 생성된 Puzzle01 프리팹의 인스턴스를 저장할 변수
 
     void Update()
     {
         // 플레이어가 박스와 충돌하고 있고 X 키를 누르면
         if (isPlayerNear && Input.GetKeyDown(KeyCode.X))
         {
-            // 박스의 현재 위치를 가져옵니다.
-            Vector3 boxPosition = transform.position;
-
-            // 박스의 x값을 175로 변경합니다.
-            targetPosition = new Vector3(175f, boxPosition.y, boxPosition.z);
-            isMoving = true; // 이동 시작
-        }
-
-        // 이동 중이면
-        if (isMoving)
-        {
-            // 부드러운 이동을 위해 선형 보간 수행
-            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 5f);
-
-            // 이동이 완료되면 이동 상태를 false로 변경
-            if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
+            // 이미 프리팹이 생성되어 있지 않다면 새로 생성
+            if (instantiatedPuzzle == null)
             {
-                isMoving = false;
+                instantiatedPuzzle = Instantiate(puzzlePrefab, new Vector3(0f, -3f, 0f), Quaternion.identity);
             }
         }
     }
@@ -45,12 +30,18 @@ public class PBoxPush : MonoBehaviour
         }
     }
 
-    // 플레이어가 박스와 충돌을 벗어났는지 확인합니다.
+    // 플레이어가 박스와 충돌을 벗어났는지 확인하고, 생성된 프리팹을 삭제합니다.
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             isPlayerNear = false;
+            // 생성된 프리팹이 있다면 삭제
+            if (instantiatedPuzzle != null)
+            {
+                Destroy(instantiatedPuzzle);
+                instantiatedPuzzle = null; // 참조도 null로 초기화
+            }
         }
     }
 }
