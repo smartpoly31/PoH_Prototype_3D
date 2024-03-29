@@ -1,15 +1,15 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 10.0f;
-    public float padding = 0.5f; // Ä³¸¯ÅÍ¿Í Àå¾Ö¹° »çÀÌ¿¡ À¯ÁöÇÒ ÃÖ¼Ò °Å¸®
+    public float padding = 0.5f; // ìºë¦­í„°ì™€ ì¥ì• ë¬¼ ì‚¬ì´ì— ìœ ì§€í•  ìµœì†Œ ê±°ë¦¬
 
     void Start()
     {
-        // ½ÃÀÛÇÒ ¶§ ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¸¦ -5, -5.5, 10À¸·Î ¼³Á¤
+        // ì‹œì‘í•  ë•Œ í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ -5, -5.5, 10ìœ¼ë¡œ ì„¤ì •
         transform.position = new Vector3(-5, -5.5f, 10);
     }
 
@@ -22,39 +22,39 @@ public class PlayerMovement : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
-            // ½ÇÁ¦ ÀÌµ¿ °Å¸® °è»ê
+            // ì‹¤ì œ ì´ë™ ê±°ë¦¬ ê³„ì‚°
             float distance = moveSpeed * Time.deltaTime;
 
             RaycastHit hit;
 
-            // Raycast¸¦ »ç¿ëÇÏ¿© ÀÌµ¿ ¹æÇâ¿¡ Àå¾Ö¹°ÀÌ ÀÖ´ÂÁö È®ÀÎ
+            // Raycastë¥¼ ì‚¬ìš©í•˜ì—¬ ì´ë™ ë°©í–¥ì— ì¥ì• ë¬¼ì´ ìˆëŠ”ì§€ í™•ì¸
             if (!Physics.Raycast(transform.position, direction, out hit, distance + padding))
             {
-                // Àå¾Ö¹°ÀÌ ¾ø°Å³ª ÃæºĞÈ÷ ¸Ö¸® ÀÖ´Ù¸é ÀÌµ¿ °è»ê
+                // ì¥ì• ë¬¼ì´ ì—†ê±°ë‚˜ ì¶©ë¶„íˆ ë©€ë¦¬ ìˆë‹¤ë©´ ì´ë™ ê³„ì‚°
                 Vector3 newPosition = transform.position + direction * distance;
 
-                // Z°ªÀÌ 7º¸´Ù ÀÛ¾ÆÁöÁö ¾Êµµ·Ï Á¶Á¤
+                // Zê°’ì´ 7ë³´ë‹¤ ì‘ì•„ì§€ì§€ ì•Šë„ë¡ ì¡°ì •
                 if (newPosition.z < 7)
                 {
-                    newPosition.z = 7; // Z°ªÀÌ 7 ÀÌÇÏ·Î ¶³¾îÁöÁö ¾Êµµ·Ï °íÁ¤
+                    newPosition.z = 7; // Zê°’ì´ 7 ì´í•˜ë¡œ ë–¨ì–´ì§€ì§€ ì•Šë„ë¡ ê³ ì •
                 }
 
-                // Á¶Á¤µÈ À§Ä¡·Î ÇÃ·¹ÀÌ¾î ÀÌµ¿
+                // ì¡°ì •ëœ ìœ„ì¹˜ë¡œ í”Œë ˆì´ì–´ ì´ë™
                 transform.position = newPosition;
             }
             else
             {
-                // Raycast¿¡ ÀÇÇØ °¨ÁöµÈ Àå¾Ö¹°°úÀÇ °Å¸®¸¦ ±â¹İÀ¸·Î ÀÌµ¿ °Å¸® Á¶Á¤
+                // Raycastì— ì˜í•´ ê°ì§€ëœ ì¥ì• ë¬¼ê³¼ì˜ ê±°ë¦¬ë¥¼ ê¸°ë°˜ìœ¼ë¡œ ì´ë™ ê±°ë¦¬ ì¡°ì •
                 float adjustedDistance = Mathf.Min(hit.distance - padding, distance);
                 Vector3 newPosition = transform.position + direction * adjustedDistance;
 
-                // Z°ªÀÌ 7º¸´Ù ÀÛ¾ÆÁöÁö ¾Êµµ·Ï Á¶Á¤
+                // Zê°’ì´ 7ë³´ë‹¤ ì‘ì•„ì§€ì§€ ì•Šë„ë¡ ì¡°ì •
                 if (newPosition.z < 7)
                 {
-                    newPosition.z = 7; // Z°ªÀÌ 7 ÀÌÇÏ·Î ¶³¾îÁöÁö ¾Êµµ·Ï °íÁ¤
+                    newPosition.z = 7; // Zê°’ì´ 7 ì´í•˜ë¡œ ë–¨ì–´ì§€ì§€ ì•Šë„ë¡ ê³ ì •
                 }
 
-                // Á¶Á¤µÈ À§Ä¡·Î ÇÃ·¹ÀÌ¾î ÀÌµ¿
+                // ì¡°ì •ëœ ìœ„ì¹˜ë¡œ í”Œë ˆì´ì–´ ì´ë™
                 transform.position = newPosition;
             }
         }

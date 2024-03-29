@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CheckColl : MonoBehaviour
 {
-    public DragObj parentScript; // ºÎ¸ğ ½ºÅ©¸³Æ®¿¡ ´ëÇÑ ÂüÁ¶
-    public string direction; // ÀÌ ¿ÀºêÁ§Æ®°¡ °¨ÁöÇÏ´Â ¹æÇâ ("up", "down", "right", "left")
+    public DragObj parentScript; // ë¶€ëª¨ ìŠ¤í¬ë¦½íŠ¸ì— ëŒ€í•œ ì°¸ì¡°
+    public string direction; // ì´ ì˜¤ë¸Œì íŠ¸ê°€ ê°ì§€í•˜ëŠ” ë°©í–¥ ("up", "down", "right", "left")
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

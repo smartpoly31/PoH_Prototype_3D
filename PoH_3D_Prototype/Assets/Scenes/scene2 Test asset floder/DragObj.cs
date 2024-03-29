@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +10,7 @@ public class DragObj : MonoBehaviour
     public float moveDistanceHorizontal = 3.44f;
     private bool dragging = false;
 
-    // °¢ ¹æÇâÀ¸·ÎÀÇ Ãæµ¹ »óÅÂ¸¦ ÀúÀåÇÏ´Â º¯¼ö
+    // ê° ë°©í–¥ìœ¼ë¡œì˜ ì¶©ëŒ ìƒíƒœë¥¼ ì €ì¥í•˜ëŠ” ë³€ìˆ˜
     private bool collisionUp = false;
     private bool collisionDown = false;
     private bool collisionRight = false;
@@ -24,7 +24,7 @@ public class DragObj : MonoBehaviour
     private void OnMouseDown()
     {
         dragStartPos = GetMouseWorldPos();
-        dragging = true; // µå·¡±× ½ÃÀÛ
+        dragging = true; // ë“œë˜ê·¸ ì‹œì‘
     }
 
     private void OnMouseUp()
@@ -33,7 +33,7 @@ public class DragObj : MonoBehaviour
         {
             Vector3 dragEndPos = GetMouseWorldPos();
             MoveInDirection(dragStartPos, dragEndPos);
-            dragging = false; // µå·¡±× Á¾·á
+            dragging = false; // ë“œë˜ê·¸ ì¢…ë£Œ
         }
     }
 
@@ -46,7 +46,7 @@ public class DragObj : MonoBehaviour
 
     private void MoveInDirection(Vector3 start, Vector3 end)
     {
-        if (!dragging) return; // µå·¡±× ÁßÀÌ ¾Æ´Ï¶ó¸é ÀÌµ¿ÇÏÁö ¾ÊÀ½
+        if (!dragging) return; // ë“œë˜ê·¸ ì¤‘ì´ ì•„ë‹ˆë¼ë©´ ì´ë™í•˜ì§€ ì•ŠìŒ
 
         Vector3 direction = (end - start).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

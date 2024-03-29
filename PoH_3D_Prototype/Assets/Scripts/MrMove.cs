@@ -1,30 +1,30 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MrMove : MonoBehaviour
 {
-    public Vector3 startPosition = new Vector3(5, -4, 23); // ½ÃÀÛ À§Ä¡
-    public Vector3 targetPosition = new Vector3(-4, -4, 23); // ¸ñÇ¥ À§Ä¡
-    private bool moveToTarget = false; // ¸ñÇ¥ À§Ä¡·Î ÀÌµ¿ ½ÃÀÛ ¿©ºÎ
-    public float moveSpeed = 1.0f; // ÀÌµ¿ ¼Óµµ
+    public Vector3 startPosition = new Vector3(5, -4, 23); // ì‹œì‘ ìœ„ì¹˜
+    public Vector3 targetPosition = new Vector3(-4, -4, 23); // ëª©í‘œ ìœ„ì¹˜
+    private bool moveToTarget = false; // ëª©í‘œ ìœ„ì¹˜ë¡œ ì´ë™ ì‹œì‘ ì—¬ë¶€
+    public float moveSpeed = 1.0f; // ì´ë™ ì†ë„
 
     void Start()
     {
-        transform.position = startPosition; // ½ÃÀÛ À§Ä¡·Î ¼³Á¤
+        transform.position = startPosition; // ì‹œì‘ ìœ„ì¹˜ë¡œ ì„¤ì •
     }
 
     void Update()
     {
         if (moveToTarget)
         {
-            // ¸ñÇ¥ À§Ä¡·Î ºÎµå·´°Ô ÀÌµ¿
+            // ëª©í‘œ ìœ„ì¹˜ë¡œ ë¶€ë“œëŸ½ê²Œ ì´ë™
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
         }
     }
 
     public void StartMoving()
     {
-        moveToTarget = true; // ÀÌµ¿ ½ÃÀÛ
+        moveToTarget = true; // ì´ë™ ì‹œì‘
     }
 }

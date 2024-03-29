@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ public class DialogScript : MonoBehaviour
 
     void Start()
     {
-        // ¾À¿¡¼­ Canvas ¿ÀºêÁ§Æ®¸¦ Ã£¾Æ¼­ ÀúÀåÇÕ´Ï´Ù.
+        // ì”¬ì—ì„œ Canvas ì˜¤ë¸Œì íŠ¸ë¥¼ ì°¾ì•„ì„œ ì €ì¥í•©ë‹ˆë‹¤.
         canvasTransform = FindObjectOfType<Canvas>().transform;
     }
 
@@ -19,9 +19,9 @@ public class DialogScript : MonoBehaviour
     {
         if (GetRedKey != null && canvasTransform != null)
         {
-            // ÅØ½ºÆ® ÇÁ¸®ÆÕÀ» CanvasÀÇ ÀÚ½ÄÀ¸·Î ÀÎ½ºÅÏ½ºÈ­ÇÕ´Ï´Ù.
+            // í…ìŠ¤íŠ¸ í”„ë¦¬íŒ¹ì„ Canvasì˜ ìì‹ìœ¼ë¡œ ì¸ìŠ¤í„´ìŠ¤í™”í•©ë‹ˆë‹¤.
             GameObject messageInstance = Instantiate(GetRedKey, canvasTransform);
-            // 3ÃÊ ÈÄ¿¡ ¸Ş½ÃÁö ÀÎ½ºÅÏ½º¸¦ ÆÄ±«ÇÕ´Ï´Ù.
+            // 3ì´ˆ í›„ì— ë©”ì‹œì§€ ì¸ìŠ¤í„´ìŠ¤ë¥¼ íŒŒê´´í•©ë‹ˆë‹¤.
             Destroy(messageInstance, 3.0f);
         }
     }
@@ -30,7 +30,7 @@ public class DialogScript : MonoBehaviour
         if (needKeyPrefab != null && canvasTransform != null)
         {
             GameObject messageInstance = Instantiate(needKeyPrefab, canvasTransform);
-            Destroy(messageInstance, 3.0f); // 3ÃÊ ÈÄ¿¡ ¸Ş½ÃÁö ÀÎ½ºÅÏ½º¸¦ ÆÄ±«ÇÕ´Ï´Ù.
+            Destroy(messageInstance, 3.0f); // 3ì´ˆ í›„ì— ë©”ì‹œì§€ ì¸ìŠ¤í„´ìŠ¤ë¥¼ íŒŒê´´í•©ë‹ˆë‹¤.
         }
     }
 
@@ -39,7 +39,7 @@ public class DialogScript : MonoBehaviour
         if (BoxMovement != null && canvasTransform != null)
         {
             GameObject messageInstance = Instantiate(BoxMovement, canvasTransform);
-            Destroy(messageInstance, 1.0f); // 1ÃÊ ÈÄ¿¡ ¸Ş½ÃÁö ÀÎ½ºÅÏ½º¸¦ ÆÄ±«ÇÕ´Ï´Ù.
+            Destroy(messageInstance, 1.0f); // 1ì´ˆ í›„ì— ë©”ì‹œì§€ ì¸ìŠ¤í„´ìŠ¤ë¥¼ íŒŒê´´í•©ë‹ˆë‹¤.
         }
     }
 }

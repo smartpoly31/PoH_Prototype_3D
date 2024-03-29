@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,11 +12,11 @@ public class DoorTrigger : MonoBehaviour
         public Vector3 DoorPosition;
     }
 
-    public PlayerScript playerScript; // PlayerScript¿¡ ´ëÇÑ ÂüÁ¶
-    public DialogScript dialogScript; // DialogScript¿¡ ´ëÇÑ ÂüÁ¶
+    public PlayerScript playerScript; // PlayerScriptì— ëŒ€í•œ ì°¸ì¡°
+    public DialogScript dialogScript; // DialogScriptì— ëŒ€í•œ ì°¸ì¡°
     private Transform canvasTransform;
 
-    // Ä«¸Ş¶ó¿Í ÇÃ·¹ÀÌ¾îÀÇ »õ À§Ä¡¸¦ Á¤ÀÇÇÕ´Ï´Ù.
+    // ì¹´ë©”ë¼ì™€ í”Œë ˆì´ì–´ì˜ ìƒˆ ìœ„ì¹˜ë¥¼ ì •ì˜í•©ë‹ˆë‹¤.
     private Vector3 CameraPosition1 = new Vector3(0, 1.2f, -9);
     private Vector3 CameraPosition2 = new Vector3(80, 1.2f, -9);
     private Vector3 CameraPosition3 = new Vector3(160, 1.2f, -9);
@@ -29,15 +29,15 @@ public class DoorTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Æ®¸®°Å¿¡ ´êÀº ¿ÀºêÁ§Æ®°¡ DoorA_R1ÀÎÁö È®ÀÎÇÕ´Ï´Ù.
+        // íŠ¸ë¦¬ê±°ì— ë‹¿ì€ ì˜¤ë¸Œì íŠ¸ê°€ DoorA_R1ì¸ì§€ í™•ì¸í•©ë‹ˆë‹¤.
         if (other.gameObject.name == "DoorA_R1")
         {
             door_open += 1;
 
-            // Ä«¸Ş¶óÀÇ À§Ä¡¸¦ º¯°æÇÕ´Ï´Ù.
+            // ì¹´ë©”ë¼ì˜ ìœ„ì¹˜ë¥¼ ë³€ê²½í•©ë‹ˆë‹¤.
             Camera.main.transform.position = CameraPosition2;
 
-            // ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¸¦ º¯°æÇÕ´Ï´Ù.
+            // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ ë³€ê²½í•©ë‹ˆë‹¤.
             transform.position = PlayerPosition2B;
 
             DoorOpenedData doorOpenedData = new DoorOpenedData
@@ -53,10 +53,10 @@ public class DoorTrigger : MonoBehaviour
         {
             door_open += 1;
 
-            // Ä«¸Ş¶óÀÇ À§Ä¡¸¦ º¯°æÇÕ´Ï´Ù.
+            // ì¹´ë©”ë¼ì˜ ìœ„ì¹˜ë¥¼ ë³€ê²½í•©ë‹ˆë‹¤.
             Camera.main.transform.position = CameraPosition1;
 
-            // ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¸¦ º¯°æÇÕ´Ï´Ù.
+            // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ ë³€ê²½í•©ë‹ˆë‹¤.
             transform.position = PlayerPosition1A;
 
             DoorOpenedData doorOpenedData = new DoorOpenedData
@@ -73,10 +73,10 @@ public class DoorTrigger : MonoBehaviour
             if (playerScript.GRedKey)
             {
                 door_open += 1;
-                // Ä«¸Ş¶óÀÇ À§Ä¡¸¦ º¯°æÇÕ´Ï´Ù.
+                // ì¹´ë©”ë¼ì˜ ìœ„ì¹˜ë¥¼ ë³€ê²½í•©ë‹ˆë‹¤.
                 Camera.main.transform.position = CameraPosition3;
 
-                // ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¸¦ º¯°æÇÕ´Ï´Ù.
+                // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ ë³€ê²½í•©ë‹ˆë‹¤.
                 transform.position = PlayerPosition3A;
 
                 DoorOpenedData doorOpenedData = new DoorOpenedData
@@ -90,8 +90,8 @@ public class DoorTrigger : MonoBehaviour
             else
             {
                 TelemetryLogger.Log(this, "Attempt without key");
-                // GRedKey°¡ °ÅÁşÀÏ °æ¿ì, NeedKey ÇÁ¸®ÆÕÀ» Äµ¹ö½º¿¡ ÀÎ½ºÅÏ½ºÈ­ÇÏ°í 3ÃÊ ÈÄ¿¡ ÆÄ±«
-                dialogScript.ShowNeedKeyMessage(); // ÀÌ ¸Ş¼Òµå´Â DialogScript¿¡¼­ ±¸ÇöÇØ¾ß ÇÕ´Ï´Ù.
+                // GRedKeyê°€ ê±°ì§“ì¼ ê²½ìš°, NeedKey í”„ë¦¬íŒ¹ì„ ìº”ë²„ìŠ¤ì— ì¸ìŠ¤í„´ìŠ¤í™”í•˜ê³  3ì´ˆ í›„ì— íŒŒê´´
+                dialogScript.ShowNeedKeyMessage(); // ì´ ë©”ì†Œë“œëŠ” DialogScriptì—ì„œ êµ¬í˜„í•´ì•¼ í•©ë‹ˆë‹¤.
             }
         }
 
@@ -99,10 +99,10 @@ public class DoorTrigger : MonoBehaviour
         {
             door_open += 1;
 
-            // Ä«¸Ş¶óÀÇ À§Ä¡¸¦ º¯°æÇÕ´Ï´Ù.
+            // ì¹´ë©”ë¼ì˜ ìœ„ì¹˜ë¥¼ ë³€ê²½í•©ë‹ˆë‹¤.
             Camera.main.transform.position = CameraPosition2;
 
-            // ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¸¦ º¯°æÇÕ´Ï´Ù.
+            // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ ë³€ê²½í•©ë‹ˆë‹¤.
             transform.position = PlayerPosition2C;
 
             DoorOpenedData doorOpenedData = new DoorOpenedData
@@ -120,7 +120,7 @@ public class DoorTrigger : MonoBehaviour
             {
                 door_open += 1;
 
-                // Ä«¸Ş¶óÀÇ À§Ä¡¸¦ º¯°æÇÕ´Ï´Ù.
+                // ì¹´ë©”ë¼ì˜ ìœ„ì¹˜ë¥¼ ë³€ê²½í•©ë‹ˆë‹¤.
                 Camera.main.transform.position = CameraPosition4;
 
                 DoorOpenedData doorOpenedData = new DoorOpenedData
@@ -134,8 +134,8 @@ public class DoorTrigger : MonoBehaviour
             else
             {
                 TelemetryLogger.Log(this, "Attempt without key");
-                // GGreenKey°¡ °ÅÁşÀÏ °æ¿ì, NeedKey ÇÁ¸®ÆÕÀ» Äµ¹ö½º¿¡ ÀÎ½ºÅÏ½ºÈ­ÇÏ°í 3ÃÊ ÈÄ¿¡ ÆÄ±«
-                dialogScript.ShowNeedKeyMessage(); // ÀÌ ¸Ş¼Òµå´Â DialogScript¿¡¼­ ±¸ÇöÇØ¾ß ÇÕ´Ï´Ù.
+                // GGreenKeyê°€ ê±°ì§“ì¼ ê²½ìš°, NeedKey í”„ë¦¬íŒ¹ì„ ìº”ë²„ìŠ¤ì— ì¸ìŠ¤í„´ìŠ¤í™”í•˜ê³  3ì´ˆ í›„ì— íŒŒê´´
+                dialogScript.ShowNeedKeyMessage(); // ì´ ë©”ì†Œë“œëŠ” DialogScriptì—ì„œ êµ¬í˜„í•´ì•¼ í•©ë‹ˆë‹¤.
             }
         }
     }

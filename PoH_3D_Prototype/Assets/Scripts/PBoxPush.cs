@@ -1,34 +1,34 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PBoxPush : MonoBehaviour
 {
-    private bool isPlayerNear = false; // ÇÃ·¹ÀÌ¾î°¡ ¹Ú½º¿Í Ãæµ¹ÇÏ°í ÀÖ´ÂÁö ¿©ºÎ
+    private bool isPlayerNear = false; // í”Œë ˆì´ì–´ê°€ ë°•ìŠ¤ì™€ ì¶©ëŒí•˜ê³  ìˆëŠ”ì§€ ì—¬ë¶€
 
-    private Vector3 targetPosition; // ÀÌµ¿ÇÒ ¸ñÇ¥ À§Ä¡
-    private bool isMoving = false; // ÇöÀç ÀÌµ¿ ÁßÀÎÁö ¿©ºÎ
+    private Vector3 targetPosition; // ì´ë™í•  ëª©í‘œ ìœ„ì¹˜
+    private bool isMoving = false; // í˜„ì¬ ì´ë™ ì¤‘ì¸ì§€ ì—¬ë¶€
 
     void Update()
     {
-        // ÇÃ·¹ÀÌ¾î°¡ ¹Ú½º¿Í Ãæµ¹ÇÏ°í ÀÖ°í X Å°¸¦ ´©¸£¸é
+        // í”Œë ˆì´ì–´ê°€ ë°•ìŠ¤ì™€ ì¶©ëŒí•˜ê³  ìˆê³  X í‚¤ë¥¼ ëˆ„ë¥´ë©´
         if (isPlayerNear && Input.GetKeyDown(KeyCode.X))
         {
-            // ¹Ú½ºÀÇ ÇöÀç À§Ä¡¸¦ °¡Á®¿É´Ï´Ù.
+            // ë°•ìŠ¤ì˜ í˜„ì¬ ìœ„ì¹˜ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤.
             Vector3 boxPosition = transform.position;
 
-            // ¹Ú½ºÀÇ x°ªÀ» 175·Î º¯°æÇÕ´Ï´Ù.
+            // ë°•ìŠ¤ì˜ xê°’ì„ 175ë¡œ ë³€ê²½í•©ë‹ˆë‹¤.
             targetPosition = new Vector3(175f, boxPosition.y, boxPosition.z);
-            isMoving = true; // ÀÌµ¿ ½ÃÀÛ
+            isMoving = true; // ì´ë™ ì‹œì‘
         }
 
-        // ÀÌµ¿ ÁßÀÌ¸é
+        // ì´ë™ ì¤‘ì´ë©´
         if (isMoving)
         {
-            // ºÎµå·¯¿î ÀÌµ¿À» À§ÇØ ¼±Çü º¸°£ ¼öÇà
+            // ë¶€ë“œëŸ¬ìš´ ì´ë™ì„ ìœ„í•´ ì„ í˜• ë³´ê°„ ìˆ˜í–‰
             transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 5f);
 
-            // ÀÌµ¿ÀÌ ¿Ï·áµÇ¸é ÀÌµ¿ »óÅÂ¸¦ false·Î º¯°æ
+            // ì´ë™ì´ ì™„ë£Œë˜ë©´ ì´ë™ ìƒíƒœë¥¼ falseë¡œ ë³€ê²½
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
                 isMoving = false;
@@ -36,7 +36,7 @@ public class PBoxPush : MonoBehaviour
         }
     }
 
-    // ÇÃ·¹ÀÌ¾î¿Í Ãæµ¹ÇÑ ¿ÀºêÁ§Æ®°¡ ¹Ú½ºÀÎÁö È®ÀÎÇÕ´Ï´Ù.
+    // í”Œë ˆì´ì–´ì™€ ì¶©ëŒí•œ ì˜¤ë¸Œì íŠ¸ê°€ ë°•ìŠ¤ì¸ì§€ í™•ì¸í•©ë‹ˆë‹¤.
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -45,7 +45,7 @@ public class PBoxPush : MonoBehaviour
         }
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ ¹Ú½º¿Í Ãæµ¹À» ¹ş¾î³µ´ÂÁö È®ÀÎÇÕ´Ï´Ù.
+    // í”Œë ˆì´ì–´ê°€ ë°•ìŠ¤ì™€ ì¶©ëŒì„ ë²—ì–´ë‚¬ëŠ”ì§€ í™•ì¸í•©ë‹ˆë‹¤.
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))

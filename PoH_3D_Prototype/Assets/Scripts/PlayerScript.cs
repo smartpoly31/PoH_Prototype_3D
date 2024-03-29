@@ -1,78 +1,78 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class PlayerScript : MonoBehaviour
 {
-    private bool waitingForClear = false; // ´ëÈ­ ÅØ½ºÆ®¸¦ ºñ¿ì±â À§ÇØ ´ë±â ÁßÀÎÁö ¿©ºÎ¸¦ ³ªÅ¸³»´Â º¯¼ö
-    private float waitTimer = 0f; // ´ë±â ½Ã°£À» ÃßÀûÇÏ´Â º¯¼ö
-    private const float waitDuration = 2f; // ´ë±âÇÒ ½Ã°£(ÃÊ)
+    private bool waitingForClear = false; // ëŒ€í™” í…ìŠ¤íŠ¸ë¥¼ ë¹„ìš°ê¸° ìœ„í•´ ëŒ€ê¸° ì¤‘ì¸ì§€ ì—¬ë¶€ë¥¼ ë‚˜íƒ€ë‚´ëŠ” ë³€ìˆ˜
+    private float waitTimer = 0f; // ëŒ€ê¸° ì‹œê°„ì„ ì¶”ì í•˜ëŠ” ë³€ìˆ˜
+    private const float waitDuration = 2f; // ëŒ€ê¸°í•  ì‹œê°„(ì´ˆ)
 
-    public TextMeshProUGUI dialogueText; // TextMeshPro ÅØ½ºÆ® ÄÄÆ÷³ÍÆ®¿¡ ´ëÇÑ ÂüÁ¶
+    public TextMeshProUGUI dialogueText; // TextMeshPro í…ìŠ¤íŠ¸ ì»´í¬ë„ŒíŠ¸ì— ëŒ€í•œ ì°¸ì¡°
     private int MrDialogueState = 0;
     private bool isNearMr = false;
 
-    [SerializeField] private GameObject Mr; // Mr ¿ÀºêÁ§Æ®¿¡ ´ëÇÑ ÂüÁ¶
-    public GameObject mrMoveScriptHolder; // MrMove ½ºÅ©¸³Æ®°¡ ºÎÂøµÈ °ÔÀÓ ¿ÀºêÁ§Æ®¿¡ ´ëÇÑ ÂüÁ¶
+    [SerializeField] private GameObject Mr; // Mr ì˜¤ë¸Œì íŠ¸ì— ëŒ€í•œ ì°¸ì¡°
+    public GameObject mrMoveScriptHolder; // MrMove ìŠ¤í¬ë¦½íŠ¸ê°€ ë¶€ì°©ëœ ê²Œì„ ì˜¤ë¸Œì íŠ¸ì— ëŒ€í•œ ì°¸ì¡°
 
-    public GameObject TakeX; // ÀÎ½ºÅÏ½ºÈ­ÇÒ ÇÁ¸®ÆÕ¿¡ ´ëÇÑ ÂüÁ¶
+    public GameObject TakeX; // ì¸ìŠ¤í„´ìŠ¤í™”í•  í”„ë¦¬íŒ¹ì— ëŒ€í•œ ì°¸ì¡°
     public GameObject PushX;
-    private GameObject instantiatedPrefab; // ÀÎ½ºÅÏ½ºÈ­µÈ ÇÁ¸®ÆÕÀÇ ÀÎ½ºÅÏ½º¸¦ ÀúÀå
-    private Transform canvasTransform; // Äµ¹ö½ºÀÇ TransformÀ» ÀúÀå
-    private bool isNearKey = false; // Ä³¸¯ÅÍ°¡ Key ¿ÀºêÁ§Æ® ±ÙÃ³¿¡ ÀÖ´ÂÁö ¿©ºÎ¸¦ ÀúÀå
-    private bool isNearKey2 = false; // Ä³¸¯ÅÍ°¡ Key ¿ÀºêÁ§Æ® ±ÙÃ³¿¡ ÀÖ´ÂÁö ¿©ºÎ¸¦ ÀúÀå
+    private GameObject instantiatedPrefab; // ì¸ìŠ¤í„´ìŠ¤í™”ëœ í”„ë¦¬íŒ¹ì˜ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ì €ì¥
+    private Transform canvasTransform; // ìº”ë²„ìŠ¤ì˜ Transformì„ ì €ì¥
+    private bool isNearKey = false; // ìºë¦­í„°ê°€ Key ì˜¤ë¸Œì íŠ¸ ê·¼ì²˜ì— ìˆëŠ”ì§€ ì—¬ë¶€ë¥¼ ì €ì¥
+    private bool isNearKey2 = false; // ìºë¦­í„°ê°€ Key ì˜¤ë¸Œì íŠ¸ ê·¼ì²˜ì— ìˆëŠ”ì§€ ì—¬ë¶€ë¥¼ ì €ì¥
     private bool isNearBox = false;
 
-    public GameObject RedKey; // È°¼ºÈ­/ºñÈ°¼ºÈ­ÇÒ Å° ¿ÀºêÁ§Æ®¸¦ ÀúÀå
-    public bool GRedKey = false; // RedKey º¯¼ö
+    public GameObject RedKey; // í™œì„±í™”/ë¹„í™œì„±í™”í•  í‚¤ ì˜¤ë¸Œì íŠ¸ë¥¼ ì €ì¥
+    public bool GRedKey = false; // RedKey ë³€ìˆ˜
 
-    public GameObject GreenKey; // È°¼ºÈ­/ºñÈ°¼ºÈ­ÇÒ ³ì»ö Å° ¿ÀºêÁ§Æ®¸¦ ÀúÀå
-    public bool GGreenKey = false; // GreenKey º¯¼ö
+    public GameObject GreenKey; // í™œì„±í™”/ë¹„í™œì„±í™”í•  ë…¹ìƒ‰ í‚¤ ì˜¤ë¸Œì íŠ¸ë¥¼ ì €ì¥
+    public bool GGreenKey = false; // GreenKey ë³€ìˆ˜
 
     public DialogScript dialogScript;
     void Start()
     {
         GRedKey = false;
         GGreenKey = false;
-        // ¾À¿¡¼­ Canvas ¿ÀºêÁ§Æ®¸¦ Ã£¾Æ¼­ ÀúÀåÇÕ´Ï´Ù. (Äµ¹ö½º°¡ È®½ÇÈ÷ ÇÏ³ª¸¸ ÀÖ´Â °æ¿ì)
+        // ì”¬ì—ì„œ Canvas ì˜¤ë¸Œì íŠ¸ë¥¼ ì°¾ì•„ì„œ ì €ì¥í•©ë‹ˆë‹¤. (ìº”ë²„ìŠ¤ê°€ í™•ì‹¤íˆ í•˜ë‚˜ë§Œ ìˆëŠ” ê²½ìš°)
         canvasTransform = FindObjectOfType<Canvas>().transform;
     }
 
     void Update()
     {
-        //½Ã°£ ´ë±â
+        //ì‹œê°„ ëŒ€ê¸°
         if (waitingForClear)
         {
-            waitTimer += Time.deltaTime; // °æ°úÇÑ ½Ã°£ ´©Àû
+            waitTimer += Time.deltaTime; // ê²½ê³¼í•œ ì‹œê°„ ëˆ„ì 
 
-            // ´ë±â ½Ã°£ÀÌ Áö³ª¸é ´ëÈ­ ÅØ½ºÆ®¸¦ ºñ¿ò
+            // ëŒ€ê¸° ì‹œê°„ì´ ì§€ë‚˜ë©´ ëŒ€í™” í…ìŠ¤íŠ¸ë¥¼ ë¹„ì›€
             if (waitTimer >= waitDuration)
             {
-                dialogueText.text = ""; // ´ëÈ­ ÅØ½ºÆ® ºñ¿ì±â
-                waitingForClear = false; // ´ë±â Á¾·á
-                waitTimer = 0f; // Å¸ÀÌ¸Ó ÃÊ±âÈ­
+                dialogueText.text = ""; // ëŒ€í™” í…ìŠ¤íŠ¸ ë¹„ìš°ê¸°
+                waitingForClear = false; // ëŒ€ê¸° ì¢…ë£Œ
+                waitTimer = 0f; // íƒ€ì´ë¨¸ ì´ˆê¸°í™”
             }
         }
 
 
-        // Ä³¸¯ÅÍ°¡ Mr ±ÙÃ³¿¡ ÀÖ°í, X Å°¸¦ ´©¸£¸é
+        // ìºë¦­í„°ê°€ Mr ê·¼ì²˜ì— ìˆê³ , X í‚¤ë¥¼ ëˆ„ë¥´ë©´
         if (isNearMr && Input.GetKeyDown(KeyCode.X))
         {
-            ProceedDialogue(); // ´ëÈ­¸¦ ÁøÇàÇÕ´Ï´Ù.
+            ProceedDialogue(); // ëŒ€í™”ë¥¼ ì§„í–‰í•©ë‹ˆë‹¤.
         }
 
-        // Ä³¸¯ÅÍ°¡ Key ¿ÀºêÁ§Æ® ±ÙÃ³¿¡ ÀÖ°í, 'X' Å°¸¦ ´©¸£¸é ¸Ş½ÃÁö Ãâ·Â
+        // ìºë¦­í„°ê°€ Key ì˜¤ë¸Œì íŠ¸ ê·¼ì²˜ì— ìˆê³ , 'X' í‚¤ë¥¼ ëˆ„ë¥´ë©´ ë©”ì‹œì§€ ì¶œë ¥
         if (isNearKey && Input.GetKeyDown(KeyCode.X))
         {
             Debug.Log("I got the Red key!");
-            // ¿©±â¿¡ Å°¸¦ ¾ò¾úÀ» ¶§ÀÇ Ãß°¡ ·ÎÁ÷À» ±¸ÇöÇÒ ¼ö ÀÖ½À´Ï´Ù.
-            // ¿¹: Å° ¿ÀºêÁ§Æ®¸¦ ºñÈ°¼ºÈ­ÇÏ°Å³ª, ÀÎº¥Åä¸®¿¡ Å° Ãß°¡ µî
-            // Å° ¿ÀºêÁ§Æ®¸¦ ºñÈ°¼ºÈ­ÇÕ´Ï´Ù.
-            if (RedKey != null && isNearKey) // Å° ¿ÀºêÁ§Æ®°¡ ±ÙÃ³¿¡ ÀÖ´ÂÁö È®ÀÎÇÕ´Ï´Ù.
+            // ì—¬ê¸°ì— í‚¤ë¥¼ ì–»ì—ˆì„ ë•Œì˜ ì¶”ê°€ ë¡œì§ì„ êµ¬í˜„í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+            // ì˜ˆ: í‚¤ ì˜¤ë¸Œì íŠ¸ë¥¼ ë¹„í™œì„±í™”í•˜ê±°ë‚˜, ì¸ë²¤í† ë¦¬ì— í‚¤ ì¶”ê°€ ë“±
+            // í‚¤ ì˜¤ë¸Œì íŠ¸ë¥¼ ë¹„í™œì„±í™”í•©ë‹ˆë‹¤.
+            if (RedKey != null && isNearKey) // í‚¤ ì˜¤ë¸Œì íŠ¸ê°€ ê·¼ì²˜ì— ìˆëŠ”ì§€ í™•ì¸í•©ë‹ˆë‹¤.
             {
                 GRedKey = true;
-                dialogScript.GKey(); // DialogScriptÀÇ ÀÎ½ºÅÏ½º¸¦ ÂüÁ¶ÇØ¾ß ÇÕ´Ï´Ù.
+                dialogScript.GKey(); // DialogScriptì˜ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ì°¸ì¡°í•´ì•¼ í•©ë‹ˆë‹¤.
                 if (instantiatedPrefab != null)
                 {
                     Destroy(instantiatedPrefab);
@@ -86,13 +86,13 @@ public class PlayerScript : MonoBehaviour
         if (isNearKey2 && Input.GetKeyDown(KeyCode.X))
         {
             Debug.Log("I got the Green key!");
-            // ¿©±â¿¡ Å°¸¦ ¾ò¾úÀ» ¶§ÀÇ Ãß°¡ ·ÎÁ÷À» ±¸ÇöÇÒ ¼ö ÀÖ½À´Ï´Ù.
-            // ¿¹: Å° ¿ÀºêÁ§Æ®¸¦ ºñÈ°¼ºÈ­ÇÏ°Å³ª, ÀÎº¥Åä¸®¿¡ Å° Ãß°¡ µî
-            // Å° ¿ÀºêÁ§Æ®¸¦ ºñÈ°¼ºÈ­ÇÕ´Ï´Ù.
-            if (GreenKey != null && isNearKey2) // Å° ¿ÀºêÁ§Æ®°¡ ±ÙÃ³¿¡ ÀÖ´ÂÁö È®ÀÎÇÕ´Ï´Ù.
+            // ì—¬ê¸°ì— í‚¤ë¥¼ ì–»ì—ˆì„ ë•Œì˜ ì¶”ê°€ ë¡œì§ì„ êµ¬í˜„í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+            // ì˜ˆ: í‚¤ ì˜¤ë¸Œì íŠ¸ë¥¼ ë¹„í™œì„±í™”í•˜ê±°ë‚˜, ì¸ë²¤í† ë¦¬ì— í‚¤ ì¶”ê°€ ë“±
+            // í‚¤ ì˜¤ë¸Œì íŠ¸ë¥¼ ë¹„í™œì„±í™”í•©ë‹ˆë‹¤.
+            if (GreenKey != null && isNearKey2) // í‚¤ ì˜¤ë¸Œì íŠ¸ê°€ ê·¼ì²˜ì— ìˆëŠ”ì§€ í™•ì¸í•©ë‹ˆë‹¤.
             {
                 GGreenKey = true;
-                dialogScript.GKey(); // DialogScriptÀÇ ÀÎ½ºÅÏ½º¸¦ ÂüÁ¶ÇØ¾ß ÇÕ´Ï´Ù.
+                dialogScript.GKey(); // DialogScriptì˜ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ì°¸ì¡°í•´ì•¼ í•©ë‹ˆë‹¤.
                 if (instantiatedPrefab != null)
                 {
                     Destroy(instantiatedPrefab);
@@ -106,12 +106,12 @@ public class PlayerScript : MonoBehaviour
         if (isNearBox && Input.GetKeyDown(KeyCode.X))
         {
             Debug.Log("AHH");
-            // ¿©±â¿¡ Å°¸¦ ¾ò¾úÀ» ¶§ÀÇ Ãß°¡ ·ÎÁ÷À» ±¸ÇöÇÒ ¼ö ÀÖ½À´Ï´Ù.
-            // ¿¹: Å° ¿ÀºêÁ§Æ®¸¦ ºñÈ°¼ºÈ­ÇÏ°Å³ª, ÀÎº¥Åä¸®¿¡ Å° Ãß°¡ µî
-            // Å° ¿ÀºêÁ§Æ®¸¦ ºñÈ°¼ºÈ­ÇÕ´Ï´Ù.
-            if (isNearBox) // Å° ¿ÀºêÁ§Æ®°¡ ±ÙÃ³¿¡ ÀÖ´ÂÁö È®ÀÎÇÕ´Ï´Ù.
+            // ì—¬ê¸°ì— í‚¤ë¥¼ ì–»ì—ˆì„ ë•Œì˜ ì¶”ê°€ ë¡œì§ì„ êµ¬í˜„í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+            // ì˜ˆ: í‚¤ ì˜¤ë¸Œì íŠ¸ë¥¼ ë¹„í™œì„±í™”í•˜ê±°ë‚˜, ì¸ë²¤í† ë¦¬ì— í‚¤ ì¶”ê°€ ë“±
+            // í‚¤ ì˜¤ë¸Œì íŠ¸ë¥¼ ë¹„í™œì„±í™”í•©ë‹ˆë‹¤.
+            if (isNearBox) // í‚¤ ì˜¤ë¸Œì íŠ¸ê°€ ê·¼ì²˜ì— ìˆëŠ”ì§€ í™•ì¸í•©ë‹ˆë‹¤.
             {
-                dialogScript.BoxInteraction(); // DialogScriptÀÇ ÀÎ½ºÅÏ½º¸¦ ÂüÁ¶ÇØ¾ß ÇÕ´Ï´Ù.
+                dialogScript.BoxInteraction(); // DialogScriptì˜ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ì°¸ì¡°í•´ì•¼ í•©ë‹ˆë‹¤.
                 if (instantiatedPrefab != null)
                 {
                     Destroy(instantiatedPrefab);
@@ -122,44 +122,44 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    // Æ®¸®°Å ¿µ¿ª¿¡ ÁøÀÔÇÒ ¶§ È£ÃâµÊ
+    // íŠ¸ë¦¬ê±° ì˜ì—­ì— ì§„ì…í•  ë•Œ í˜¸ì¶œë¨
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Key")) // 'Key' ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®¿ÍÀÇ Ãæµ¹ °¨Áö
+        if (other.gameObject.CompareTag("Key")) // 'Key' íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ì™€ì˜ ì¶©ëŒ ê°ì§€
         {
-            if (instantiatedPrefab == null && canvasTransform != null) // ¾ÆÁ÷ ÀÎ½ºÅÏ½ºÈ­µÇÁö ¾Ê¾Ò°í, Äµ¹ö½º°¡ ¼³Á¤µÇ¾ú´Ù¸é
+            if (instantiatedPrefab == null && canvasTransform != null) // ì•„ì§ ì¸ìŠ¤í„´ìŠ¤í™”ë˜ì§€ ì•Šì•˜ê³ , ìº”ë²„ìŠ¤ê°€ ì„¤ì •ë˜ì—ˆë‹¤ë©´
             {
-                // ÇÁ¸®ÆÕÀ» CanvasÀÇ ÀÚ½ÄÀ¸·Î ÀÎ½ºÅÏ½ºÈ­ÇÕ´Ï´Ù.
+                // í”„ë¦¬íŒ¹ì„ Canvasì˜ ìì‹ìœ¼ë¡œ ì¸ìŠ¤í„´ìŠ¤í™”í•©ë‹ˆë‹¤.
                 instantiatedPrefab = Instantiate(TakeX, canvasTransform);
-                // À§Ä¡ ¹× ½ºÄÉÀÏ Á¶Á¤ÀÌ ÇÊ¿äÇÒ ¼ö ÀÖ½À´Ï´Ù.
-                //instantiatedPrefab.transform.localPosition = Vector3.zero; // ÇÊ¿ä¿¡ µû¶ó À§Ä¡ Á¶Á¤
-                //instantiatedPrefab.transform.localScale = Vector3.one; // ½ºÄÉÀÏÀ» ±âº»°ªÀ¸·Î ¼³Á¤
+                // ìœ„ì¹˜ ë° ìŠ¤ì¼€ì¼ ì¡°ì •ì´ í•„ìš”í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+                //instantiatedPrefab.transform.localPosition = Vector3.zero; // í•„ìš”ì— ë”°ë¼ ìœ„ì¹˜ ì¡°ì •
+                //instantiatedPrefab.transform.localScale = Vector3.one; // ìŠ¤ì¼€ì¼ì„ ê¸°ë³¸ê°’ìœ¼ë¡œ ì„¤ì •
             }
             isNearKey = true;
         }
 
-        if (other.gameObject.CompareTag("Key2")) // 'Key2' ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®¿ÍÀÇ Ãæµ¹ °¨Áö
+        if (other.gameObject.CompareTag("Key2")) // 'Key2' íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ì™€ì˜ ì¶©ëŒ ê°ì§€
         {
-            if (instantiatedPrefab == null && canvasTransform != null) // ¾ÆÁ÷ ÀÎ½ºÅÏ½ºÈ­µÇÁö ¾Ê¾Ò°í, Äµ¹ö½º°¡ ¼³Á¤µÇ¾ú´Ù¸é
+            if (instantiatedPrefab == null && canvasTransform != null) // ì•„ì§ ì¸ìŠ¤í„´ìŠ¤í™”ë˜ì§€ ì•Šì•˜ê³ , ìº”ë²„ìŠ¤ê°€ ì„¤ì •ë˜ì—ˆë‹¤ë©´
             {
-                // ÇÁ¸®ÆÕÀ» CanvasÀÇ ÀÚ½ÄÀ¸·Î ÀÎ½ºÅÏ½ºÈ­ÇÕ´Ï´Ù.
+                // í”„ë¦¬íŒ¹ì„ Canvasì˜ ìì‹ìœ¼ë¡œ ì¸ìŠ¤í„´ìŠ¤í™”í•©ë‹ˆë‹¤.
                 instantiatedPrefab = Instantiate(TakeX, canvasTransform);
-                // À§Ä¡ ¹× ½ºÄÉÀÏ Á¶Á¤ÀÌ ÇÊ¿äÇÒ ¼ö ÀÖ½À´Ï´Ù.
-                //instantiatedPrefab.transform.localPosition = Vector3.zero; // ÇÊ¿ä¿¡ µû¶ó À§Ä¡ Á¶Á¤
-                //instantiatedPrefab.transform.localScale = Vector3.one; // ½ºÄÉÀÏÀ» ±âº»°ªÀ¸·Î ¼³Á¤
+                // ìœ„ì¹˜ ë° ìŠ¤ì¼€ì¼ ì¡°ì •ì´ í•„ìš”í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+                //instantiatedPrefab.transform.localPosition = Vector3.zero; // í•„ìš”ì— ë”°ë¼ ìœ„ì¹˜ ì¡°ì •
+                //instantiatedPrefab.transform.localScale = Vector3.one; // ìŠ¤ì¼€ì¼ì„ ê¸°ë³¸ê°’ìœ¼ë¡œ ì„¤ì •
             }
             isNearKey2 = true;
         }
 
-        if (other.gameObject.CompareTag("Box")) // 'Box' ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®¿ÍÀÇ Ãæµ¹ °¨Áö
+        if (other.gameObject.CompareTag("Box")) // 'Box' íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ì™€ì˜ ì¶©ëŒ ê°ì§€
         {
-            if (instantiatedPrefab == null && canvasTransform != null) // ¾ÆÁ÷ ÀÎ½ºÅÏ½ºÈ­µÇÁö ¾Ê¾Ò°í, Äµ¹ö½º°¡ ¼³Á¤µÇ¾ú´Ù¸é
+            if (instantiatedPrefab == null && canvasTransform != null) // ì•„ì§ ì¸ìŠ¤í„´ìŠ¤í™”ë˜ì§€ ì•Šì•˜ê³ , ìº”ë²„ìŠ¤ê°€ ì„¤ì •ë˜ì—ˆë‹¤ë©´
             {
-                // ÇÁ¸®ÆÕÀ» CanvasÀÇ ÀÚ½ÄÀ¸·Î ÀÎ½ºÅÏ½ºÈ­ÇÕ´Ï´Ù.
+                // í”„ë¦¬íŒ¹ì„ Canvasì˜ ìì‹ìœ¼ë¡œ ì¸ìŠ¤í„´ìŠ¤í™”í•©ë‹ˆë‹¤.
                 instantiatedPrefab = Instantiate(PushX, canvasTransform);
-                // À§Ä¡ ¹× ½ºÄÉÀÏ Á¶Á¤ÀÌ ÇÊ¿äÇÒ ¼ö ÀÖ½À´Ï´Ù.
-                //instantiatedPrefab.transform.localPosition = Vector3.zero; // ÇÊ¿ä¿¡ µû¶ó À§Ä¡ Á¶Á¤
-                //instantiatedPrefab.transform.localScale = Vector3.one; // ½ºÄÉÀÏÀ» ±âº»°ªÀ¸·Î ¼³Á¤
+                // ìœ„ì¹˜ ë° ìŠ¤ì¼€ì¼ ì¡°ì •ì´ í•„ìš”í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+                //instantiatedPrefab.transform.localPosition = Vector3.zero; // í•„ìš”ì— ë”°ë¼ ìœ„ì¹˜ ì¡°ì •
+                //instantiatedPrefab.transform.localScale = Vector3.one; // ìŠ¤ì¼€ì¼ì„ ê¸°ë³¸ê°’ìœ¼ë¡œ ì„¤ì •
             }
             isNearBox = true;
         }
@@ -167,19 +167,19 @@ public class PlayerScript : MonoBehaviour
         if (other.gameObject.name == "Mr")
         {
             isNearMr = true;
-            MrDialogueState = 0; // ´ëÈ­¸¦ Ã³À½ºÎÅÍ ½ÃÀÛ
-            ProceedDialogue(); // Áï½Ã Ã¹ ¹øÂ° ¸Ş½ÃÁö¸¦ Ç¥½Ã
+            MrDialogueState = 0; // ëŒ€í™”ë¥¼ ì²˜ìŒë¶€í„° ì‹œì‘
+            ProceedDialogue(); // ì¦‰ì‹œ ì²« ë²ˆì§¸ ë©”ì‹œì§€ë¥¼ í‘œì‹œ
         }
     }
 
-    // Æ®¸®°Å ¿µ¿ª¿¡¼­ ¹ş¾î³¯ ¶§ È£ÃâµÊ
+    // íŠ¸ë¦¬ê±° ì˜ì—­ì—ì„œ ë²—ì–´ë‚  ë•Œ í˜¸ì¶œë¨
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Key"))
         {
-            if (instantiatedPrefab != null) // ÀÎ½ºÅÏ½ºÈ­µÈ ÇÁ¸®ÆÕÀÌ ÀÖ´Ù¸é
+            if (instantiatedPrefab != null) // ì¸ìŠ¤í„´ìŠ¤í™”ëœ í”„ë¦¬íŒ¹ì´ ìˆë‹¤ë©´
             {
-                // ÀÎ½ºÅÏ½ºÈ­µÈ ÇÁ¸®ÆÕ »èÁ¦
+                // ì¸ìŠ¤í„´ìŠ¤í™”ëœ í”„ë¦¬íŒ¹ ì‚­ì œ
                 Destroy(instantiatedPrefab);
                 instantiatedPrefab = null;
             }
@@ -188,9 +188,9 @@ public class PlayerScript : MonoBehaviour
 
         if (other.gameObject.CompareTag("Key2"))
         {
-            if (instantiatedPrefab != null) // ÀÎ½ºÅÏ½ºÈ­µÈ ÇÁ¸®ÆÕÀÌ ÀÖ´Ù¸é
+            if (instantiatedPrefab != null) // ì¸ìŠ¤í„´ìŠ¤í™”ëœ í”„ë¦¬íŒ¹ì´ ìˆë‹¤ë©´
             {
-                // ÀÎ½ºÅÏ½ºÈ­µÈ ÇÁ¸®ÆÕ »èÁ¦
+                // ì¸ìŠ¤í„´ìŠ¤í™”ëœ í”„ë¦¬íŒ¹ ì‚­ì œ
                 Destroy(instantiatedPrefab);
                 instantiatedPrefab = null;
             }
@@ -199,9 +199,9 @@ public class PlayerScript : MonoBehaviour
 
         if (other.gameObject.CompareTag("Box"))
         {
-            if (instantiatedPrefab != null) // ÀÎ½ºÅÏ½ºÈ­µÈ ÇÁ¸®ÆÕÀÌ ÀÖ´Ù¸é
+            if (instantiatedPrefab != null) // ì¸ìŠ¤í„´ìŠ¤í™”ëœ í”„ë¦¬íŒ¹ì´ ìˆë‹¤ë©´
             {
-                // ÀÎ½ºÅÏ½ºÈ­µÈ ÇÁ¸®ÆÕ »èÁ¦
+                // ì¸ìŠ¤í„´ìŠ¤í™”ëœ í”„ë¦¬íŒ¹ ì‚­ì œ
                 Destroy(instantiatedPrefab);
                 instantiatedPrefab = null;
             }
@@ -211,7 +211,7 @@ public class PlayerScript : MonoBehaviour
         if (other.gameObject.name == "Mr")
         {
             isNearMr = false;
-            dialogueText.text = ""; // ´ëÈ­ ÅØ½ºÆ®¸¦ ºñ¿ó´Ï´Ù
+            dialogueText.text = ""; // ëŒ€í™” í…ìŠ¤íŠ¸ë¥¼ ë¹„ì›ë‹ˆë‹¤
         }
     }
 
@@ -224,19 +224,19 @@ public class PlayerScript : MonoBehaviour
             "Okay.."
         };
 
-        // ÇöÀç ´ëÈ­ »óÅÂ¿¡ ¸Â´Â ÅØ½ºÆ®¸¦ Ç¥½Ã
+        // í˜„ì¬ ëŒ€í™” ìƒíƒœì— ë§ëŠ” í…ìŠ¤íŠ¸ë¥¼ í‘œì‹œ
         dialogueText.text = dialogues[MrDialogueState];
 
 
-        // ´ëÈ­ »óÅÂ ¾÷µ¥ÀÌÆ® Àü¿¡ ÇöÀç »óÅÂ Ã¼Å©
-        if (MrDialogueState == 3) // ¸¶Áö¸· ´ëÈ­°¡ ³¡³µÀ» ¶§
+        // ëŒ€í™” ìƒíƒœ ì—…ë°ì´íŠ¸ ì „ì— í˜„ì¬ ìƒíƒœ ì²´í¬
+        if (MrDialogueState == 3) // ë§ˆì§€ë§‰ ëŒ€í™”ê°€ ëë‚¬ì„ ë•Œ
         {
-            Mr.GetComponent<MrMove>().StartMoving(); // Mr ¿ÀºêÁ§Æ®ÀÇ ÀÌµ¿ ½ÃÀÛ
+            Mr.GetComponent<MrMove>().StartMoving(); // Mr ì˜¤ë¸Œì íŠ¸ì˜ ì´ë™ ì‹œì‘
             isNearMr = false;
-            Mr.GetComponent<BoxCollider>().enabled = false; // BoxCollider ºñÈ°¼ºÈ­
+            Mr.GetComponent<BoxCollider>().enabled = false; // BoxCollider ë¹„í™œì„±í™”
             waitingForClear = true;
         }
-        // ´ÙÀ½ ´ëÈ­ »óÅÂ·Î ¾÷µ¥ÀÌÆ®
+        // ë‹¤ìŒ ëŒ€í™” ìƒíƒœë¡œ ì—…ë°ì´íŠ¸
         MrDialogueState = (MrDialogueState + 1) % dialogues.Length;
     }
 }
