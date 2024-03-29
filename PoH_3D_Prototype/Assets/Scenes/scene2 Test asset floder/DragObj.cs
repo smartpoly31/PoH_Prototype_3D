@@ -6,7 +6,9 @@ public class DragObj : MonoBehaviour
 {
     private Vector3 dragStartPos;
     private Camera cam;
-    private float moveDistance = 1.0f; // 한 번에 이동할 거리
+    public float moveDistanceVertical = 2.63f;
+    public float moveDistanceHorizontal = 3.44f;
+    private bool dragging = false;
 
     // 각 방향으로의 충돌 상태를 저장하는 변수
     private bool collisionUp = false;
@@ -16,20 +18,22 @@ public class DragObj : MonoBehaviour
 
     private void Start()
     {
-        cam = Camera.main; // 메인 카메라를 찾습니다.
+        cam = Camera.main;
     }
 
-    void Update()
+    private void OnMouseDown()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            dragStartPos = GetMouseWorldPos();
-        }
+        dragStartPos = GetMouseWorldPos();
+        dragging = true; // 드래그 시작
+    }
 
-        if (Input.GetMouseButtonUp(0))
+    private void OnMouseUp()
+    {
+        if (dragging)
         {
             Vector3 dragEndPos = GetMouseWorldPos();
             MoveInDirection(dragStartPos, dragEndPos);
+            dragging = false; // 드래그 종료
         }
     }
 
@@ -42,29 +46,29 @@ public class DragObj : MonoBehaviour
 
     private void MoveInDirection(Vector3 start, Vector3 end)
     {
+        if (!dragging) return; // 드래그 중이 아니라면 이동하지 않음
+
         Vector3 direction = (end - start).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // 이동 방향에 따른 충돌 검사 및 이동 실행
         if (angle < 45f && angle > -45f && !collisionRight)
         {
-            transform.position += Vector3.right * moveDistance;
+            transform.position += Vector3.right * moveDistanceHorizontal;
         }
         else if (angle < 135f && angle >= 45f && !collisionUp)
         {
-            transform.position += Vector3.up * moveDistance;
+            transform.position += Vector3.up * moveDistanceVertical;
         }
         else if (angle <= -45f && angle > -135f && !collisionDown)
         {
-            transform.position += Vector3.down * moveDistance;
+            transform.position += Vector3.down * moveDistanceVertical;
         }
         else if ((angle > 135f || angle <= -135f) && !collisionLeft)
         {
-            transform.position += Vector3.left * moveDistance;
+            transform.position += Vector3.left * moveDistanceHorizontal;
         }
     }
 
-    // 충돌 상태 설정 메소드
     public void SetCollision(string direction, bool state)
     {
         switch (direction)
