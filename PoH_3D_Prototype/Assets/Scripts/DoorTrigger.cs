@@ -17,10 +17,10 @@ public class DoorTrigger : MonoBehaviour
     private Transform canvasTransform;
 
     // 카메라와 플레이어의 새 위치를 정의합니다.
-    private Vector3 CameraPosition1 = new Vector3(0, 6.5f, -9);
-    private Vector3 CameraPosition2 = new Vector3(80, 6.5f, -9);
-    private Vector3 CameraPosition3 = new Vector3(160, 6.5f, -9);
-    private Vector3 CameraPosition4 = new Vector3(240, 6.5f, -9);
+    private Vector3 CameraPosition1 = new Vector3(0, 1.2f, -9);
+    private Vector3 CameraPosition2 = new Vector3(80, 1.2f, -9);
+    private Vector3 CameraPosition3 = new Vector3(160, 1.2f, -9);
+    private Vector3 CameraPosition4 = new Vector3(240, 1.2f, -9);
     private Vector3 PlayerPosition1A = new Vector3(16, -5.5f, 12);
     private Vector3 PlayerPosition2B = new Vector3(65, -5.5f, 12);
     private Vector3 PlayerPosition2C = new Vector3(70, -5.5f, 21);
