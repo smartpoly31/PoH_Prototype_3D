@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa188ed3cd5ee314b91a17c5c707da0a, type: 3}
   m_Name: TelemetrySettingss
   m_EditorClassIdentifier: 
-  userName: Kwack
-  secret: 991566809
+  userName: Pit of Hands
+  secret: absolute demonstrator
   _version: 001
   _serverURL: https://dd-telemetry-07949c147d02.herokuapp.com/
   serverCommunication: 1
