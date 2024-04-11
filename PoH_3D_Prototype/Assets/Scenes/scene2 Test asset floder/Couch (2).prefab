@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 2942898648292600967}
   - component: {fileID: 3068453355282764718}
   - component: {fileID: 2993892017606058063}
+  - component: {fileID: 8484380451691100563}
   m_Layer: 0
   m_Name: Couch (2)
   m_TagString: Untagged
@@ -376,7 +377,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0058932304, y: -0.00726974}
+  m_Offset: {x: 0.016159058, y: -0.021310568}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -387,8 +388,35 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.6677074, y: 1.6687233}
+  m_Size: {x: 5.9715576, y: 1.8624363}
   m_EdgeRadius: 0
+--- !u!50 &8484380451691100563
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6310474288712806447}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7952543429906322679
 GameObject:
   m_ObjectHideFlags: 0

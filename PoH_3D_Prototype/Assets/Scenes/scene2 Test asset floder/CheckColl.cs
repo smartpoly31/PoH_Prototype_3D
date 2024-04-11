@@ -14,6 +14,6 @@ public class CheckColl : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        parentScript.SetCollision(direction, false);
+        parentScript.SetCollision(direction, false); 
     }
 }
