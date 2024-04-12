@@ -8,10 +8,19 @@ public class PBoxPush : MonoBehaviour
     public GameObject puzzlePrefab; // 생성할 Puzzle01 프리팹
     private GameObject instantiatedPuzzle = null; // 생성된 Puzzle01 프리팹의 인스턴스를 저장할 변수
 
+    private boxmoves BoxMovesScript; // boxmoves 스크립트에 대한 참조
+
+    private void Start()
+    {
+        // boxmoves 스크립트를 찾아 참조를 저장합니다.
+        // 이 예제에서는 같은 GameObject에 붙어 있는 것으로 가정합니다.
+        BoxMovesScript = GetComponent<boxmoves>();
+    }
+
     void Update()
     {
-        // 플레이어가 박스와 충돌하고 있고 X 키를 누르면
-        if (isPlayerNear && Input.GetKeyDown(KeyCode.X))
+        // 플레이어가 박스와 충돌하고 있고 X 키를 누르며, boxmoves의 isKeyGoal이 false일 때만 상호작용
+        if (isPlayerNear && Input.GetKeyDown(KeyCode.X) && BoxMovesScript != null && !BoxMovesScript.isKeyGoal)
         {
             // 이미 프리팹이 생성되어 있지 않다면 새로 생성
             if (instantiatedPuzzle == null)

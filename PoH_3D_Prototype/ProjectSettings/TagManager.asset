@@ -8,6 +8,8 @@ TagManager:
   - Key2
   - Character
   - Box
+  - Key3
+  - puzzleGoal
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - key
   - 
   - 
   - 
@@ -44,4 +46,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: puzzle
+    uniqueID: 108157381
+    locked: 0
+  - name: keygoal
+    uniqueID: 3206750867
+    locked: 0
+  - name: key
+    uniqueID: 3790285871
     locked: 0
