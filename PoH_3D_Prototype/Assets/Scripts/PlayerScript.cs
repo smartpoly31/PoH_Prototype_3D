@@ -227,18 +227,22 @@ public class PlayerScript : MonoBehaviour
     private void ProceedDialogue()
     {
         string[] dialogues = new string[] {
-            "Hello!",
-            "Wonderful day, kid.",
-            "Get away",
-            "Okay.."
+            "Oh a bell! I should ring it!\n'X' to ring bell",
+            "Ringing the bell starts dialogue with the CONCIERGE.",
+            "*The boy behind the desk groans*",
+            "Hi... Hello... How can I help you?",
+            "*He looks down at you*",
+            "Ugh, it's the kid",
+            "Just leave me alone. Can't you see I'm busy brooding?"
         };
+
 
         // 현재 대화 상태에 맞는 텍스트를 표시
         dialogueText.text = dialogues[MrDialogueState];
 
 
         // 대화 상태 업데이트 전에 현재 상태 체크
-        if (MrDialogueState == 3) // 마지막 대화가 끝났을 때
+        if (MrDialogueState == 6) // 마지막 대화가 끝났을 때
         {
             Mr.GetComponent<MrMove>().StartMoving(); // Mr 오브젝트의 이동 시작
             isNearMr = false;
