@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 10.0f;
     public float padding = 0.5f; // 캐릭터와 장애물 사이에 유지할 최소 거리
 
+
     void Start()
     {
         // 시작할 때 플레이어의 위치를 -5, -5.5, 10으로 설정

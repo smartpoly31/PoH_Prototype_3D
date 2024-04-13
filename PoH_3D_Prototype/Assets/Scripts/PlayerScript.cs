@@ -5,6 +5,8 @@ using TMPro;
 
 public class PlayerScript : MonoBehaviour
 {
+    public AudioSource audioSource1;
+
     private bool waitingForClear = false; // 대화 텍스트를 비우기 위해 대기 중인지 여부를 나타내는 변수
     private float waitTimer = 0f; // 대기 시간을 추적하는 변수
     private const float waitDuration = 2f; // 대기할 시간(초)
@@ -33,6 +35,9 @@ public class PlayerScript : MonoBehaviour
     public DialogScript dialogScript;
     void Start()
     {
+        AudioSource[] audioSources = GetComponents<AudioSource>();
+        audioSource1 = audioSources[0];
+
         GRedKey = false;
         GGreenKey = false;
         // 씬에서 Canvas 오브젝트를 찾아서 저장합니다. (캔버스가 확실히 하나만 있는 경우)
@@ -65,6 +70,8 @@ public class PlayerScript : MonoBehaviour
         // 캐릭터가 Key 오브젝트 근처에 있고, 'X' 키를 누르면 메시지 출력
         if (isNearKey && Input.GetKeyDown(KeyCode.X))
         {
+            audioSource1.Play();  // 첫 번째 소리 재생
+
             Debug.Log("I got the Red key!");
             // 여기에 키를 얻었을 때의 추가 로직을 구현할 수 있습니다.
             // 예: 키 오브젝트를 비활성화하거나, 인벤토리에 키 추가 등
@@ -85,6 +92,8 @@ public class PlayerScript : MonoBehaviour
 
         if (isNearKey2 && Input.GetKeyDown(KeyCode.X))
         {
+            audioSource1.Play();  // 첫 번째 소리 재생
+
             Debug.Log("I got the Green key!");
             // 여기에 키를 얻었을 때의 추가 로직을 구현할 수 있습니다.
             // 예: 키 오브젝트를 비활성화하거나, 인벤토리에 키 추가 등

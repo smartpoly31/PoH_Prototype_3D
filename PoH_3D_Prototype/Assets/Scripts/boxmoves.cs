@@ -13,9 +13,13 @@ public class boxmoves : MonoBehaviour
     private Vector3 targetPosition; // 박스 오브젝트의 목표 위치
     private float moveSpeed = 5f; // 박스 이동 속도
 
+    private AudioSource audioSource; // AudioSource 컴포넌트를 저장할 변수
+
     private void Start()
     {
+        puzzlePrefab.SetActive(true);
         targetPosition = transform.position; // 초기 목표 위치를 현재 위치로 설정
+        audioSource = GetComponent<AudioSource>(); // 시작 시 AudioSource 컴포넌트를 가져옴
     }
 
     private void Update()
@@ -25,10 +29,11 @@ public class boxmoves : MonoBehaviour
             // 프리팹이 아직 삭제되지 않았다면 프리팹 삭제
             if (puzzlePrefab != null)
             {
-                Destroy(puzzlePrefab);
+                puzzlePrefab.SetActive(false);
                 puzzlePrefab = null;
                 // 목표 위치 업데이트
                 targetPosition = new Vector3(175f, -6f, 13f);
+                audioSource.Play(); // 드래그 시작 시 사운드 재생
                 isMoving = true; // 이동 시작
             }
         }

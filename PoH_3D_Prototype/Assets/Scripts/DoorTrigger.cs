@@ -15,6 +15,7 @@ public class DoorTrigger : MonoBehaviour
     public PlayerScript playerScript; // PlayerScript에 대한 참조
     public DialogScript dialogScript; // DialogScript에 대한 참조
     private Transform canvasTransform;
+    private AudioSource audioSource2;
 
     // 카메라와 플레이어의 새 위치를 정의합니다.
     private Vector3 CameraPosition1 = new Vector3(0, 1.2f, -9);
@@ -27,13 +28,21 @@ public class DoorTrigger : MonoBehaviour
     private Vector3 PlayerPosition3A = new Vector3(144, -5.5f, 12);
     private int door_open = 0;
 
-    private void OnTriggerEnter(Collider other)
+    void Start()
+    {
+        AudioSource[] sources = GetComponents<AudioSource>();
+        if (sources.Length > 1)
+            audioSource2 = sources[1]; // 두 번째 AudioSource 컴포넌트를 가져옴
+        else
+            Debug.LogError("AudioSource missing");
+    }
+        private void OnTriggerEnter(Collider other)
     {
         // 트리거에 닿은 오브젝트가 DoorA_R1인지 확인합니다.
         if (other.gameObject.name == "DoorA_R1")
         {
             door_open += 1;
-
+            audioSource2.Play();  // 첫 번째 소리 재생
             // 카메라의 위치를 변경합니다.
             Camera.main.transform.position = CameraPosition2;
 
@@ -52,7 +61,7 @@ public class DoorTrigger : MonoBehaviour
         if (other.gameObject.name == "DoorB_R2")
         {
             door_open += 1;
-
+            audioSource2.Play();  // 첫 번째 소리 재생
             // 카메라의 위치를 변경합니다.
             Camera.main.transform.position = CameraPosition1;
 
@@ -72,6 +81,7 @@ public class DoorTrigger : MonoBehaviour
         {
             if (playerScript.GRedKey)
             {
+                audioSource2.Play();  // 첫 번째 소리 재생
                 door_open += 1;
                 // 카메라의 위치를 변경합니다.
                 Camera.main.transform.position = CameraPosition3;
@@ -97,6 +107,7 @@ public class DoorTrigger : MonoBehaviour
 
         if (other.gameObject.name == "DoorA_R3")
         {
+            audioSource2.Play();  // 첫 번째 소리 재생
             door_open += 1;
 
             // 카메라의 위치를 변경합니다.
@@ -118,6 +129,7 @@ public class DoorTrigger : MonoBehaviour
         {
             if (playerScript.GGreenKey)
             {
+                audioSource2.Play();  // 첫 번째 소리 재생
                 door_open += 1;
 
                 // 카메라의 위치를 변경합니다.

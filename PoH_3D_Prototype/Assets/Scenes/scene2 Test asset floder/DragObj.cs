@@ -10,6 +10,8 @@ public class DragObj : MonoBehaviour
     private bool dragging = false;
     private bool canMove = true; // 이동 가능 상태를 나타내는 새 변수
 
+    private AudioSource audioSource; // AudioSource 컴포넌트를 저장할 변수
+
     // 각 방향으로의 충돌 상태를 저장하는 변수
     private bool collisionUp = false;
     private bool collisionDown = false;
@@ -23,6 +25,7 @@ public class DragObj : MonoBehaviour
     private void Start()
     {
         cam = Camera.main;
+        audioSource = GetComponent<AudioSource>(); // 시작 시 AudioSource 컴포넌트를 가져옴
     }
 
     private void OnMouseDown()
@@ -31,6 +34,7 @@ public class DragObj : MonoBehaviour
         {
             dragStartPos = GetMouseWorldPos();
             dragging = true;
+            audioSource.Play(); // 드래그 시작 시 사운드 재생
         }
     }
 
