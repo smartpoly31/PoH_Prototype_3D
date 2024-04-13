@@ -3208,7 +3208,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6335bacd164803641affd1281e9cbe1c, type: 2}
+  - {fileID: 2100000, guid: 3d14b3ee4a43fb049bd1d3f7c158e0d1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3267,10 +3267,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   padding: 0.5
-  backMaterial: {fileID: 2100000, guid: dacaf97f0cb618646b434085e290bffe, type: 2}
-  leftMaterial: {fileID: 2100000, guid: 438934b578d54ce48a410505b3fc19c4, type: 2}
-  rightMaterial: {fileID: 2100000, guid: 8c38f0c3f95e52747b466783b98a6c1f, type: 2}
-  defaultMaterial: {fileID: 2100000, guid: 6335bacd164803641affd1281e9cbe1c, type: 2}
+  upTexture: {fileID: 2800000, guid: 2d8bd7d45e6a54a4c853d10fd535bbae, type: 3}
+  downTexture: {fileID: 2800000, guid: 630bae7b66ff2384981353b87eab60ab, type: 3}
+  leftTexture: {fileID: 2800000, guid: f46872b1a4052f94a9bfd513a51191b3, type: 3}
+  rightTexture: {fileID: 2800000, guid: 055e60309eb5db94ea94e789ec5750e3, type: 3}
 --- !u!114 &1778538973
 MonoBehaviour:
   m_ObjectHideFlags: 0
