@@ -36,7 +36,7 @@ public class DoorTrigger : MonoBehaviour
         else
             Debug.LogError("AudioSource missing");
     }
-        private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         // 트리거에 닿은 오브젝트가 DoorA_R1인지 확인합니다.
         if (other.gameObject.name == "DoorA_R1")
@@ -142,13 +142,25 @@ public class DoorTrigger : MonoBehaviour
                     DoorPosition = PlayerPosition2C
                 };
                 TelemetryLogger.Log(this, "Door opened", doorOpenedData);
+
+                // 5초 후 게임 종료
+                StartCoroutine(EndGameAfterDelay(5.0f));
             }
             else
             {
                 TelemetryLogger.Log(this, "Attempt without key");
-                // GGreenKey가 거짓일 경우, NeedKey 프리팹을 캔버스에 인스턴스화하고 3초 후에 파괴
                 dialogScript.ShowNeedKeyMessage(); // 이 메소드는 DialogScript에서 구현해야 합니다.
             }
+        }
+
+        IEnumerator EndGameAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            // 게임 종료 코드
+            Application.Quit();
+            // PC용 빌드에서 사용
+            // Unity Editor에서 테스트하는 경우 아래 코드 주석 처리를 해제하세요.
+            // UnityEditor.EditorApplication.isPlaying = false;
         }
     }
 }
